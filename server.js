@@ -4,13 +4,14 @@ const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
 const app = express();
+app.use(express.json());
 const PORT = process.env.PORT ;
  const client= new pg.Client(process.env.DATABASE_URL);
  app.use(express.urlencoded({ extended: true }));
  app.use(express.static('./public')); 
  app.set('view engine', 'ejs');
- 
-//  app.use(methodOverride('_method'));
+ const methodOverride = require('method-override');
+ app.use(methodOverride('_method'));
 
 app.use('/',(req,res)=>{
     res.render('index');
@@ -19,8 +20,8 @@ app.use('/new',(req,res)=>{
     res.redirect('new');
 })
 
-app.use('/show', (req,res)=>{
-    fffff
+app.get('/show', (req,res)=>{
+    
      let url= 'https://digimon-api.herokuapp.com/api/digimon';
      console.log(url)
           superagent.get(url)
@@ -31,9 +32,9 @@ app.use('/show', (req,res)=>{
              let digimonOBJ= new Digimon(value);
              return digimonOBJ;
          })
-         res.render('/searches/show',{result:digimonArr});
-     })
-
+         res.render('pages/searches/show',{result:digimonArr});
+        })
+        
 })
 app.post ('/add',(req,res)=>{
     let {name,level,img}= req.body;
