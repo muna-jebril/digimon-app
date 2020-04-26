@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ <%   results.forEach(value =>{ %>
+    <H1><%=value.name%></H1>
+    <h2><%=value.level%></h2>
+    <img src='<%=value.img%>'>
+    <form action="/detail" method="post">
+        <input type="text" name='name' value='<%=value.name%>'>
+        <input type="text" name='level' value='<%=value.level%>'>
+        <input type="text" name='img' value='<%=value.img%>'>
+        <button type="submit"> more detail</button>
+        
+        
+    </form>
+   <% })  %>
+
+</body>
+</html>
